@@ -1,7 +1,8 @@
 "use client";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import LineChart from "./LineChart";
 import { mydatatype } from "@/types";
+import { ToggleSwitch } from "../components/ToggleSwitch";
 
 const product = {
   name: "Linjediagram",
@@ -43,14 +44,45 @@ const relatedChart = [
 ];
 
 const data: mydatatype[] = [
-  { name: "Tony", value: 9 },
-  { name: "Peter", value: 6 },
-  { name: "Pietro", value: 1 },
-  { name: "Steve", value: 7 },
-  { name: "Thor", value: 8 },
+  { name: "2008", value: 2 },
+  { name: "2009", value: 0 },
+  { name: "2010", value: 1 },
+  { name: "2011", value: 2 },
+  { name: "2012", value: 1 },
+  { name: "2013", value: 2 },
+  { name: "2014", value: 2 },
+  { name: "2015", value: 2 },
+  { name: "2016", value: 2 },
+  { name: "2017", value: 3 },
+  { name: "2018", value: 3 },
+  { name: "2019", value: 3 },
+  { name: "2020", value: 0 },
+  { name: "2021", value: 4 },
+  { name: "2022", value: 2 },
+  { name: "2023", value: 3 },
 ];
 
 export default function LinePage() {
+  const [isGridlinesActive, setIsGridlinesActive] = useState(true);
+  const [isCurvedlineActive, setIsCurvedlineActive] = useState(false);
+  const [isDotsActive, setIsDotsActive] = useState(true);
+  const [isHoverActive, setIsHoverActive] = useState(false);
+
+  const toggleGridlines = () => {
+    setIsGridlinesActive(!isGridlinesActive);
+  };
+
+  const toggleCurvelines = () => {
+    setIsCurvedlineActive(!isCurvedlineActive);
+  };
+  const toggleDots = () => {
+    setIsDotsActive(!isDotsActive);
+  };
+
+  const toggleHover = () => {
+    setIsHoverActive(!isHoverActive);
+  };
+
   return (
     <main className="mx-auto px-4 pb-24 pt-14 sm:px-6 sm:pb-32 sm:pt-16 lg:max-w-7xl lg:px-8">
       {/* Product */}
@@ -58,7 +90,41 @@ export default function LinePage() {
         {/* Product image */}
         <div className=" col-span-4 row-span-2">
           <div className=" h-full flex items-center justify-center overflow-hidden rounded-lg shadow border-2 p-10">
-            <LineChart data={data} />
+            <LineChart
+              data={data}
+              {...(isHoverActive ? { withHover: true } : {})}
+              {...(isGridlinesActive ? { withGridlines: true } : {})}
+              {...(isCurvedlineActive ? { withCurveLine: true } : {})}
+              {...(isDotsActive ? { withDots: true } : {})}
+            />
+          </div>
+          <div className="flex w-full justify-center gap-4 p-2">
+            <div className="flex items-center gap-2">
+              Horisontale Grid?
+              <ToggleSwitch
+                onChange={toggleGridlines}
+                enabled={isGridlinesActive}
+              />
+            </div>
+            <div className="flex items-center gap-2">
+              Kurvet linje?
+              <ToggleSwitch
+                onChange={toggleCurvelines}
+                enabled={isCurvedlineActive}
+              />
+            </div>
+            <div className="flex items-center gap-2">
+              Med cirkler?
+              <ToggleSwitch onChange={toggleDots} enabled={isDotsActive} />
+            </div>
+            <div className="flex items-center gap-2">
+              Med hover?{" "}
+              <ToggleSwitch
+                onChange={toggleHover}
+                enabled={isHoverActive}
+                disabled={!isDotsActive}
+              />
+            </div>
           </div>
         </div>
 

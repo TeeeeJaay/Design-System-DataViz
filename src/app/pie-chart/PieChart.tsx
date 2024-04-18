@@ -48,6 +48,7 @@ export default function PieChart({
 
   useEffect(() => {
     if (!ref.current) return;
+    console.log("effecten er startet");
 
     const svg = d3
       .select(ref.current)

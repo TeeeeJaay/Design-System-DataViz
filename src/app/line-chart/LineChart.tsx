@@ -74,7 +74,7 @@ export default function LineChart({
     const y = d3
       .scaleLinear()
       .range([height, 0])
-      .domain([0, d3.max(data, (d) => d.value * 1.2)]);
+      .domain([0, d3.max(data, (d) => d.value * 1.2)!]);
 
     if (withGridlines) {
       const yAxisTicks = y.ticks().slice(1);
@@ -125,7 +125,7 @@ export default function LineChart({
         .enter()
         .append("circle")
         .attr("class", "dot")
-        .attr("cx", (d) => x(d.name))
+        .attr("cx", (d) => x(d.name)!)
         .attr("cy", (d) => y(d.value))
         .attr("r", 5)
         .attr("fill", colorScale("1"));

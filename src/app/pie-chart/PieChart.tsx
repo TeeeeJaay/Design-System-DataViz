@@ -56,12 +56,9 @@ export default function PieChart({
       .attr("height", height)
       .classed("pie-chart", true);
 
-    const g = svg.selectAll("g").data([null]);
-    g.enter()
+    const g = svg
       .append("g")
       .attr("transform", `translate(${width / 2}, ${height / 2})`);
-
-    g.exit().remove();
 
     const pieGenerator = d3
       .pie<DataItem>()
@@ -153,7 +150,16 @@ export default function PieChart({
     } else {
       d3.selectAll(".legend-item").remove();
     }
-  }, [data, width, height, withLegend, withLabels, withHover, percentageLabel]);
+  }, [
+    data,
+    width,
+    height,
+    withLegend,
+    withLabels,
+    withHover,
+    percentageLabel,
+    useEffect,
+  ]);
 
   return (
     <div

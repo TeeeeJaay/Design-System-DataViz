@@ -47,7 +47,7 @@ export default function PieChart({
   };
 
   useEffect(() => {
-    if (!ref.current) return;
+    if (!ref.current || !data) return; // Sikrer at ref og data er tilgængelige
     console.log("effecten er startet");
 
     const svg = d3
@@ -153,16 +153,7 @@ export default function PieChart({
     } else {
       d3.selectAll(".legend-item").remove();
     }
-  }, [
-    data,
-    width,
-    height,
-    withLegend,
-    withLabels,
-    withHover,
-    percentageLabel,
-    useEffect,
-  ]);
+  }, [data, width, height, withLegend, withLabels, withHover, percentageLabel]);
 
   return (
     <div

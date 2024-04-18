@@ -45,12 +45,14 @@ const relatedChart = [
   // More products...
 ];
 
-const data = [
-  { name: "Mark", value: 0.25 },
-  { name: "Robert", value: 0.25 },
-  { name: "Emily", value: 0.125 },
-  { name: "Marion", value: 0.125 },
-  { name: "Nicolas", value: 0.25 },
+type mydatatype = { name: string; value: number };
+
+const data: mydatatype[] = [
+  { name: "Tony", value: 9 },
+  { name: "Peter", value: 6 },
+  { name: "Pietro", value: 1 },
+  { name: "Steve", value: 7 },
+  { name: "Thor", value: 8 },
 ];
 
 export default function PiePage() {

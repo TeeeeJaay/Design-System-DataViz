@@ -43,7 +43,8 @@ const relatedChart = [
   // More products...
 ];
 
-const data = [
+type mydatatype = { name: string; value: number };
+const data: mydatatype[] = [
   { name: "Tony", value: 9 },
   { name: "Peter", value: 6 },
   { name: "Pietro", value: 1 },

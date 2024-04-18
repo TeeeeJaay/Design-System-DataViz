@@ -545,6 +545,9 @@ video {
 .visible {
   visibility: visible;
 }
+.\!visible {
+  visibility: visible !important;
+}
 .static {
   position: static;
 }

@@ -1,10 +1,9 @@
+import { mydatatype } from "@/types";
 import * as d3 from "d3";
 import { useMemo } from "react";
 import React, { useEffect, useState, useRef } from "react";
 
 type LineChartProps = {
-  width: number;
-  height: number;
   data: { name: string; value: number }[];
 };
 
@@ -66,7 +65,7 @@ export default function LineChart({ data }: LineChartProps) {
     // Y axis
     const yScale = d3
       .scaleLinear()
-      .domain([0, d3.max(data, (d) => d.value+10) || 0])
+      .domain([0, d3.max(data, (d) => d.value + 10) || 0])
       .range([boundsHeight, 0]);
     chart.append("g").call(d3.axisLeft(yScale));
 
@@ -76,6 +75,7 @@ export default function LineChart({ data }: LineChartProps) {
       .domain(data.map((d) => d.name))
       .range([0, boundsWidth])
       .padding(0.1);
+
     chart
       .append("g")
       .attr("transform", `translate(0,${boundsHeight})`)
@@ -83,8 +83,8 @@ export default function LineChart({ data }: LineChartProps) {
 
     // Line
     const line = d3
-      .line()
-      .x((d) => xScale(d.name) + xScale.bandwidth() / 2)
+      .line<mydatatype>()
+      .x((d) => xScale(d.name)! + xScale.bandwidth() / 2)
       .y((d) => yScale(d.value));
 
     chart

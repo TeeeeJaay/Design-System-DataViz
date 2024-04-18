@@ -2,12 +2,10 @@ import * as d3 from "d3";
 import React, { useEffect, useState, useRef } from "react";
 
 type BarplotProps = {
-  width: number;
-  height: number;
   data: { name: string; value: number }[];
-  withHover: boolean;
-  withGridlines: boolean;
-  ranked: boolean;
+  withHover?: boolean;
+  withGridlines?: boolean;
+  ranked?: boolean;
 };
 
 const colorScale = d3.scaleOrdinal(d3.schemeSet2);
@@ -68,12 +66,12 @@ export default function BarChart({
     const y = d3
       .scaleLinear()
       .rangeRound([height, 0])
-      .domain([0, d3.max(sortedData, (d) => d.value * 1.2)]);
+      .domain([0, d3.max(sortedData, (d) => d.value * 1.2)!]);
 
     if (withGridlines) {
       const yAxisTicks = y.ticks().slice(1);
       g.selectAll(".grid-line")
-        .data(yAxisTicks, (d) => d)
+        .data(yAxisTicks, (d) => d as number)
         .enter()
         .append("line")
         .attr("class", "grid-line")
@@ -93,7 +91,7 @@ export default function BarChart({
       .attr("y", (d) => y(d.value))
       .attr("width", x.bandwidth())
       .attr("height", (d) => height - y(d.value))
-      .attr("fill", (d, i) => colorScale(i))
+      .attr("fill", (d, i) => colorScale(i.toString()))
       .on("mouseenter", function (event, d) {
         if (withHover) {
           const activeBar = d3.select(this);

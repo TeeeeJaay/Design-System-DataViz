@@ -1,6 +1,7 @@
 "use client";
 import { Fragment } from "react";
 import LineChart from "./LineChart";
+import { mydatatype } from "@/types";
 
 const product = {
   name: "Linjediagram",
@@ -41,12 +42,12 @@ const relatedChart = [
   // More products...
 ];
 
-const data = [
-  { name: "Mark", value: 10 },
-  { name: "Robert", value: 12 },
-  { name: "Emily", value: 34 },
-  { name: "Marion", value: 53 },
-  { name: "Nicolas", value: 98 },
+const data: mydatatype[] = [
+  { name: "Tony", value: 9 },
+  { name: "Peter", value: 6 },
+  { name: "Pietro", value: 1 },
+  { name: "Steve", value: 7 },
+  { name: "Thor", value: 8 },
 ];
 
 export default function LinePage() {

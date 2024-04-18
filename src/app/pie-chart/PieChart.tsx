@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import * as d3 from "d3";
+import { mydatatype } from "@/types";
 
 type DataItem = {
   name: string;
@@ -9,10 +10,10 @@ type DataItem = {
 type DonutChartProps = {
   width: number;
   height: number;
-  percentageLabel: boolean;
-  withLabels: boolean;
-  withLegend: boolean;
-  withHover: boolean;
+  percentageLabel?: boolean;
+  withLabels?: boolean;
+  withLegend?: boolean;
+  withHover?: boolean;
   data: DataItem[];
 };
 
@@ -32,17 +33,19 @@ export default function PieChart({
   const ref = useRef<SVGSVGElement>(null);
   const legendRef = useRef<HTMLDivElement>(null);
 
-  const [labels, setLabels] = useState([]);
+  const [labels, setLabels] = useState<{ [key: string]: any }[]>([]);
 
   const colorScale = d3.scaleOrdinal(d3.schemeSet2);
 
-  const updateLabelVisibility = (id, visible) => {
+  const updateLabelVisibility = (id: number, visible: boolean) => {
     setLabels((currentLabels) =>
-      currentLabels.map((label) => {
-        return label.id === id ? { ...label, visible } : label;
-      })
+      currentLabels.map((label) => ({
+        ...label,
+        visible: label.id === id ? visible : label.visible,
+      }))
     );
   };
+
   useEffect(() => {
     if (!ref.current) return;
 
@@ -55,7 +58,6 @@ export default function PieChart({
     const g = svg.selectAll("g").data([null]);
     g.enter()
       .append("g")
-      .merge(g)
       .attr("transform", `translate(${width / 2}, ${height / 2})`);
 
     g.exit().remove();
@@ -77,9 +79,8 @@ export default function PieChart({
     paths
       .enter()
       .append("path")
-      .merge(paths)
       .attr("d", arcPathGenerator)
-      .attr("fill", (d, i) => colorScale(i))
+      .attr("fill", (d, i) => colorScale(i.toString()))
 
       .on("mouseenter", function (event, d) {
         if (withHover) {
@@ -106,7 +107,7 @@ export default function PieChart({
     paths.exit().remove();
 
     const arcLabelGenerator = d3
-      .arc()
+      .arc<d3.PieArcDatum<DataItem>>()
       .innerRadius(innerRadius)
       .outerRadius(radius)
       .padAngle(0.01)
@@ -124,6 +125,7 @@ export default function PieChart({
         visible: withLabels, // Control visibility directly based on withLabels
       };
     });
+
     setLabels(initialLabels);
 
     if (withLegend) {
@@ -141,7 +143,7 @@ export default function PieChart({
       legendItems
         .append("div")
         .attr("class", "legend-color-block")
-        .style("background-color", (d, i) => colorScale(i))
+        .style("background-color", (d, i) => colorScale(i.toString()))
         .style("width", "20px")
         .style("height", "20px")
         .style("margin-right", "10px");
@@ -154,12 +156,11 @@ export default function PieChart({
     data,
     width,
     height,
-    radius,
-    innerRadius,
     withLegend,
     withLabels,
     withHover,
     percentageLabel,
+    useEffect,
   ]);
 
   return (

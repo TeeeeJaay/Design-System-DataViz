@@ -1,8 +1,14 @@
 import { Switch } from "@headlessui/react";
-function classNames(...classes) {
+function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
-export function ToggleSwitch({ enabled, onChange }) {
+export function ToggleSwitch({
+  enabled,
+  onChange,
+}: {
+  enabled: boolean;
+  onChange: () => void;
+}) {
   return (
     <Switch
       checked={enabled}

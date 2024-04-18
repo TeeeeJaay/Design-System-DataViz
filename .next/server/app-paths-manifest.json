@@ -1,4 +1,9 @@
 {
-  "/pie-chart/page": "app/pie-chart/page.js",
-  "/favicon.ico/route": "app/favicon.ico/route.js"
+  "/_not-found": "app/_not-found.js",
+  "/bar-chart/page": "app/bar-chart/page.js",
+  "/colors/page": "app/colors/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/line-chart/page": "app/line-chart/page.js",
+  "/page": "app/page.js",
+  "/pie-chart/page": "app/pie-chart/page.js"
 }

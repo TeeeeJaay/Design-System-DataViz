@@ -48,11 +48,10 @@ const relatedChart = [
 type mydatatype = { name: string; value: number };
 
 const data: mydatatype[] = [
-  { name: "Tony", value: 9 },
-  { name: "Peter", value: 6 },
-  { name: "Pietro", value: 1 },
-  { name: "Steve", value: 7 },
-  { name: "Thor", value: 8 },
+  { name: "Fase 1", value: 6 },
+  { name: "Fase 2", value: 6 },
+  { name: "Fase 3", value: 11 },
+  { name: "Fase 4", value: 15 },
 ];
 
 export default function PiePage() {
@@ -83,7 +82,6 @@ export default function PiePage() {
               width={500}
               height={500}
               data={data}
-              percentageLabel
               {...(isLabelsActive ? { withLabels: true } : {})}
               {...(isLegendActive ? { withLegend: true } : {})}
               {...(isHoverActive ? { withHover: true } : {})}

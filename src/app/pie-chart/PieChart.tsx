@@ -119,7 +119,7 @@ export default function PieChart({
         name: d.data.name,
         value: percentageLabel
           ? `${(d.data.value * 100).toFixed(1)}%`
-          : d.data.value.toString(),
+          : `${d.data.value} film`, //"Film" erstattes med den egentlige entitetestype
         visible: withLabels, // Control visibility directly based on withLabels
       };
     });

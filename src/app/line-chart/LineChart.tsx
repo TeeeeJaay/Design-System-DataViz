@@ -92,7 +92,7 @@ export default function LineChart({
 
     const line = d3
       .line<{ name: string; value: number }>()
-      .x((d) => x(d.name))
+      .x((d) => x(d.name)!)
       .y((d) => y(d.value));
 
     if (withCurveLine) {

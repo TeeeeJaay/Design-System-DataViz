@@ -6,9 +6,12 @@ import { ToggleSwitch } from "../components/ToggleSwitch";
 
 const product = {
   name: "Søjle diagram",
-  version: { name: "1.0", date: "11 Marts, 2024", datetime: "2021-06-05" },
+  version: { name: "1.0", date: "22 april, 2024", datetime: "2024-22-04" },
+  type: "Sammenligning",
+  typeDescription:
+    "Diagrammer som viser forholdet mellem en variable og anden.",
   description:
-    "Et søjlediagram eller et pindediagram er et diagram, hvor man gennem højden på søjlerne illustrerer de forskellige frekvensers fordeling. Forskellen på søjle- og pindediagrammet er bredden på søjlerne/stolpe; de er smallest i et pindediagram",
+    "Et søjlediagram eller et pindediagram er et diagram, hvor man gennem højden på søjlerne illustrerer de forskellige varibles værdi. Det mest brugte diagram og også det nemmeste at afkode. ",
   highlights: [
     "- Bruges til at sammenligne variable med en numeral værdi",
     "- Kan sorteres på en meningsfuld måde, eks, høj-lav, a-b etc.",
@@ -18,27 +21,48 @@ const product = {
 
 const faqs = [
   {
-    question: "What format are these icons?",
+    question: "Hvad er forskellen på et søjlediagram og et histogram?",
     answer:
-      "The icons are in SVG (Scalable Vector Graphic) format. They can be imported into your design tool of choice and used directly in code.",
+      "Selvom de kan se ens ud, repræsenterer et søjlediagram kategoriske data, hvor hver søjle står for en separat kategori, mens et histogram bruges til at repræsentere frekvensfordelinger af kontinuerlige data. I et histogram rører søjlerne ved hinanden, hvilket indikerer rækkevidden af data inden for hvert interval.",
   },
   {
-    question: "Can I use the icons at different sizes?",
+    question:
+      "Hvilken type data er mest velegnet til at blive præsenteret i et søjlediagram?",
     answer:
-      "Yes. The icons are drawn on a 24 x 24 pixel grid, but the icons can be scaled to different sizes as needed. We don't recommend going smaller than 20 x 20 or larger than 64 x 64 to retain legibility and visual balance.",
+      "Søjlediagrammer er mest velegnede til nominelle eller ordinale kategorier, hvor der er klare adskillelser mellem hver kategori. Eksempler på sådanne data kunne være salgstal fordelt på forskellige produkttyper, antal ansatte i forskellige afdelinger, eller resultaterne af en meningsmåling fordelt på svarmuligheder.",
   },
-  // More FAQs...
+  {
+    question:
+      "Hvordan kan man undgå misvisende repræsentationer i søjlediagrammer?",
+    answer:
+      " For at undgå misvisende repræsentationer i søjlediagrammer, bør man sikre, at y-aksen altid starter ved 0. Dette forhindrer overdreven visuel forstærkning af forskelle mellem søjlerne. Desuden bør man undgå at sammenpresse eller udvide akseskalaerne unødvendigt, da dette kan skabe et fejlagtigt indtryk af dataene.",
+  },
 ];
 
 const relatedChart = [
   {
     id: 1,
-    name: "Histogram",
-    category: "Fordeling",
-    href: "#",
-    imageSrc:
-      "https://media.geeksforgeeks.org/wp-content/uploads/20231004173705/Histogram.webp",
-    imageAlt: "Histogram.",
+    name: "Grupperet søjle diagram",
+    category: "Sammenligning",
+    href: "https://d3-graph-gallery.com/graph/barplot_grouped_basicWide.html",
+    imageSrc: "./clusteredbarchart.png",
+    imageAlt: "Grupperet søjle diagram.",
+  },
+  {
+    id: 2,
+    name: "Boblediagram",
+    category: "Sammenligning",
+    href: "https://d3-graph-gallery.com/graph/bubble_basic.html",
+    imageSrc: "./bubblechart.png",
+    imageAlt: "Boblediagram",
+  },
+  {
+    id: 3,
+    name: "Polardiagram",
+    category: "Sammenligning",
+    href: "https://observablehq.com/@lytol/polar-area-chart",
+    imageSrc: "./polarchart.png",
+    imageAlt: "Polardiagram",
   },
   // More products...
 ];
@@ -109,7 +133,12 @@ export default function BarPage() {
               <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
                 {product.name}
               </h1>
-
+              <h1
+                className="text-gray-700 cursor-help"
+                title={product.typeDescription}
+              >
+                {product.type}
+              </h1>
               <p className="mt-2 text-sm text-gray-500">
                 Version {product.version.name} (Updated{" "}
                 <time dateTime={product.version.datetime}>
@@ -169,12 +198,13 @@ export default function BarPage() {
             Lignede visualiseringer
           </h2>
         </div>
-        <div className="mt-6 grid grid-cols-1 gap-x-8 gap-y-8 sm:grid-cols-2 sm:gap-y-10">
+        <div className="mt-6 grid grid-cols-1 gap-10 w-fit sm:grid-cols-4 ">
           {relatedChart.map((product) => (
             <a
+              target="_blank"
               href={product.href}
               key={product.id}
-              className="group hover:bg-blue-100 w-fit p-2 rounded-lg"
+              className="group hover:bg-blue-100 w-36 p-2 rounded-lg"
             >
               <div className="aspect-square h-32 overflow-hidden rounded-lg bg-gray-100">
                 <img

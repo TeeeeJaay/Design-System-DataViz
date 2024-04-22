@@ -4,11 +4,14 @@ import PieChart from "./PieChart";
 import { ToggleSwitch } from "../components/ToggleSwitch";
 
 const product = {
-  name: "Circle Diagram",
-  version: { name: "1.0", date: "4 Marts, 2024", datetime: "2021-06-05" },
+  name: "Cirkel Diagram",
+  type: "Del-til-helhed",
+  typeDescription: "Diagrammer som viser forholdet mellem en del og helheden.",
+  version: { name: "1.0", date: "22 April, 2024", datetime: "2024-22-04" },
   description:
-    "Et lagkagediagram er et statistisk diagram der gengiver relative størrelser grafisk i en cirkel. Hver størrelse repræsenteres af et cirkeludsnit hvis areal angiver størrelsen proportionalt. Lagekagediagrammer kritiseres ofte, med rette, for at være svære at afkode.",
+    "Et cirkel diagram er et statistisk diagram viser en cirkel. Hver størrelse repræsenteres af et cirkeludsnit hvis areal angiver den enkelte varibles del af helheden.",
   highlights: [
+    "- Kritiseret for at være svær at afkode, brug derfor med omhu",
     "- Bruges til at sammenligne variable med en numeral værdi, omregnet til procent",
     "- Bør ikke bruges ved mere end 5 variable",
     "- Er god til at vise store forskelle, (5% vs. 25%), men ikke mere diskrete (10% og 15%)",
@@ -20,14 +23,14 @@ const product = {
 
 const faqs = [
   {
-    question: "What format are these icons?",
+    question: "Hvad er ulemperne ved at bruge cirkeldiagrammer?",
     answer:
-      "The icons are in SVG (Scalable Vector Graphic) format. They can be imported into your design tool of choice and used directly in code.",
+      "En af ulemperne ved cirkeldiagrammer er, at det kan være svært at aflæse præcise forskelle mellem sektorer, især hvis de er næsten lige store. Derudover kan det blive uoverskueligt, hvis der er for mange kategorier, eller hvis nogle kategorier er meget små, da det kan gøre det svært at skelne mellem dem.",
   },
   {
-    question: "Can I use the icons at different sizes?",
+    question: "Hvilke typer data er bedst repræsenteret med et cirkeldiagram?",
     answer:
-      "Yes. The icons are drawn on a 24 x 24 pixel grid, but the icons can be scaled to different sizes as needed. We don't recommend going smaller than 20 x 20 or larger than 64 x 64 to retain legibility and visual balance.",
+      "Cirkeldiagrammer er mest effektive, når du har et begrænset antal kategorier (typisk mindre end syv), og hver kategori repræsenterer en del af en helhed, som f.eks. markedsandele, befolkningsfordeling efter alder eller stemmefordeling i et valg.",
   },
   // More FAQs...
 ];
@@ -35,12 +38,27 @@ const faqs = [
 const relatedChart = [
   {
     id: 1,
-    name: "Histogram",
-    category: "Fordeling",
-    href: "#",
-    imageSrc:
-      "https://media.geeksforgeeks.org/wp-content/uploads/20231004173705/Histogram.webp",
-    imageAlt: "Histogram.",
+    name: "Treemap",
+    type: "Del-til-helhed",
+    href: "https://d3-graph-gallery.com/treemap.html",
+    imageSrc: "./treemap.png",
+    imageAlt: "tree map",
+  },
+  {
+    id: 2,
+    name: "Waffle chart",
+    type: "Del-til-helhed",
+    href: "https://observablehq.com/@analyzer2004/waffle-chart",
+    imageSrc: "./wafflechart.png",
+    imageAlt: "waffle chart",
+  },
+  {
+    id: 3,
+    name: "Stacked bar chart",
+    type: "Del-til-helhed og Sammenligning",
+    href: "https://d3-graph-gallery.com/graph/barplot_stacked_basicWide.html",
+    imageSrc: "./stackedbar.png",
+    imageAlt: "stackedbar chart",
   },
   // More products...
 ];
@@ -110,6 +128,12 @@ export default function PiePage() {
               <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
                 {product.name}
               </h1>
+              <h1
+                className="text-gray-700 cursor-help"
+                title={product.typeDescription}
+              >
+                {product.type}
+              </h1>
 
               <p className="mt-2 text-sm text-gray-500">
                 Version {product.version.name} (Updated{" "}
@@ -170,12 +194,13 @@ export default function PiePage() {
             Lignede visualiseringer
           </h2>
         </div>
-        <div className="mt-6 grid grid-cols-1 gap-x-8 gap-y-8 sm:grid-cols-2 sm:gap-y-10">
+        <div className="mt-6 grid grid-cols-1 gap-10 w-fit sm:grid-cols-4 ">
           {relatedChart.map((product) => (
             <a
+              target="_blank"
               href={product.href}
               key={product.id}
-              className="group hover:bg-blue-100 w-fit p-2 rounded-lg"
+              className="group hover:bg-blue-100 w-36 p-2 rounded-lg"
             >
               <div className="aspect-square h-32 overflow-hidden rounded-lg bg-gray-100">
                 <img
@@ -186,16 +211,12 @@ export default function PiePage() {
                 <div
                   className="flex items-end p-4 opacity-0 group-hover:opacity-100"
                   aria-hidden="true"
-                >
-                  <div className="w-full rounded-md bg-white bg-opacity-75 px-4 py-2 text-center text-sm font-medium text-gray-900 backdrop-blur backdrop-filter">
-                    View Product
-                  </div>
-                </div>
+                ></div>
               </div>
               <div className="mt-4 flex items-center justify-between space-x-8 text-base font-medium text-gray-900">
                 <h3>{product.name}</h3>
               </div>
-              <p className="mt-1 text-sm text-gray-500">{product.category}</p>
+              <p className="mt-1 text-sm text-gray-500">{product.type}</p>
             </a>
           ))}
         </div>

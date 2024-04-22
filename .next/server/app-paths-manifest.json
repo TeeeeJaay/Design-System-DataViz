@@ -1,7 +1,7 @@
 {
   "/_not-found": "app/_not-found.js",
-  "/bar-chart/page": "app/bar-chart/page.js",
   "/colors/page": "app/colors/page.js",
+  "/bar-chart/page": "app/bar-chart/page.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
   "/line-chart/page": "app/line-chart/page.js",
   "/page": "app/page.js",

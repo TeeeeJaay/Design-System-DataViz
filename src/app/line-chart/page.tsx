@@ -6,43 +6,103 @@ import { ToggleSwitch } from "../components/ToggleSwitch";
 
 const product = {
   name: "Linjediagram",
-  version: { name: "1.0", date: "11 Marts, 2024", datetime: "2021-06-05" },
+  type: "Tendenser",
+  typeDescription: "Diagrammer som viser hvordan tid påvirker en variable",
+  version: { name: "1.0", date: "22. april, 2024", datetime: "2024-22-04" },
   description:
-    "Et søjlediagram eller et pindediagram er et diagram, hvor man gennem højden på søjlerne illustrerer de forskellige frekvensers fordeling. Forskellen på søjle- og pindediagrammet er bredden på søjlerne/stolpe; de er smallest i et pindediagram",
+    "Et linjediagram viser ændringer over tid i kvantitative værdier for forskellige kategorier, arrangeret langs en tidslig x-akse. Værdierne plottes som forbundne linjer, der fremhæver tendenser mellem datapunkter, og flere kategorier kan vises samtidigt med unikke linjer for hver.",
   highlights: [
-    "- Bruges til at sammenligne variable med en numeral værdi",
-    "- Kan sorteres på en meningsfuld måde, eks, høj-lav, a-b etc.",
-    "- Er god til at vise forskelle på en måde som er nemt at afkode",
+    "- Er god til at vise tendeser som ændre sig over tid",
+    "- For mange linjer kan gøre diagrammet rodet og vanskeligt at aflæse.",
+    "- Tidsintervallet på x-aksen skal passe til det formål, diagrammet tjener",
   ],
 };
 
 const faqs = [
   {
-    question: "What format are these icons?",
+    question:
+      "Hvordan påvirker manglende data præsentationen i et linjediagram?",
     answer:
-      "The icons are in SVG (Scalable Vector Graphic) format. They can be imported into your design tool of choice and used directly in code.",
+      "Manglende data kan skabe huller eller afskårne linjer i et linjediagram, hvilket kan forvirre seeren eller lede til misforståelser af dataenes tendenser. Det er vigtigt at håndtere manglende data korrekt, enten ved at interpolere værdierne for at skabe en kontinuerlig linje eller ved tydeligt at markere, hvor data mangler, så læseren er opmærksom på dette",
   },
   {
-    question: "Can I use the icons at different sizes?",
+    question: "Hvordan påvirker outliers præsentationen i et linjediagram?",
     answer:
-      "Yes. The icons are drawn on a 24 x 24 pixel grid, but the icons can be scaled to different sizes as needed. We don't recommend going smaller than 20 x 20 or larger than 64 x 64 to retain legibility and visual balance.",
+      "Outliers kan have en stor indvirkning på skalaen og den generelle fortolkning af et linjediagram. De kan trække grafens visuelle fokus væk fra de generelle trends og gøre det svært at se de underliggende mønstre. I sådanne tilfælde kan det være nyttigt at identificere og måske endda fjerne outliers, eller du kan bruge en alternativ skala, som logaritmisk skala, for bedre at kunne inkludere dem uden at forstyrre grafens læsbarhed.",
   },
-  // More FAQs...
+  {
+    question:
+      "Hvordan anvender man flere linjer i et diagram uden at skabe forvirring?",
+    answer:
+      "Når du anvender flere linjer i et linjediagram, er nøglen til at undgå forvirring at bruge klare, distinkte farver eller linjetyper for hver linje. Sørg for, at hver linje kan identificeres entydigt gennem en legende. Overvej også muligheden for at gruppere relaterede linjer sammen eller at bruge interaktivitet til at lade brugerne vælge, hvilke linjer de ønsker at se, når diagrammet vises digitalt.",
+  },
 ];
 
 const relatedChart = [
   {
     id: 1,
-    name: "Histogram",
-    category: "Fordeling",
-    href: "#",
-    imageSrc:
-      "https://media.geeksforgeeks.org/wp-content/uploads/20231004173705/Histogram.webp",
-    imageAlt: "Histogram.",
+    name: "Arealdiagram",
+    category: "Trendenser",
+    href: "https://d3-graph-gallery.com/graph/area_basic.html",
+    imageSrc: "./areachart.png",
+    imageAlt: "arealdiagram.",
   },
-  // More products...
+  {
+    id: 2,
+    name: "Stacked arealdiagram",
+    category: "Trendenser",
+    href: "https://d3-graph-gallery.com/graph/stackedarea_basic.html",
+    imageSrc: "./stackedarea.png",
+    imageAlt: "stacked arealdiagram",
+  },
 ];
+// Define the structure of the data object
+interface Data {
+  MCU: mydatatype[];
+  DCU: mydatatype[];
+}
 
+// Declare the data object with the correct TypeScript syntax
+const data: Data = {
+  MCU: [
+    { name: "2008", value: 2 },
+    { name: "2009", value: 0 },
+    { name: "2010", value: 1 },
+    { name: "2011", value: 2 },
+    { name: "2012", value: 1 },
+    { name: "2013", value: 2 },
+    { name: "2014", value: 2 },
+    { name: "2015", value: 2 },
+    { name: "2016", value: 2 },
+    { name: "2017", value: 3 },
+    { name: "2018", value: 3 },
+    { name: "2019", value: 3 },
+    { name: "2020", value: 0 },
+    { name: "2021", value: 4 },
+    { name: "2022", value: 2 },
+    { name: "2023", value: 3 },
+  ],
+  DCU: [
+    { name: "2008", value: 0 },
+    { name: "2009", value: 0 },
+    { name: "2010", value: 0 },
+    { name: "2011", value: 0 },
+    { name: "2012", value: 0 },
+    { name: "2013", value: 1 },
+    { name: "2014", value: 0 },
+    { name: "2015", value: 0 },
+    { name: "2016", value: 2 },
+    { name: "2017", value: 2 },
+    { name: "2018", value: 1 },
+    { name: "2019", value: 1 },
+    { name: "2020", value: 2 },
+    { name: "2021", value: 1 },
+    { name: "2022", value: 2 },
+    { name: "2023", value: 2 },
+  ],
+};
+/* 
+// Declare the data object with the correct TypeScript syntax
 const data: mydatatype[] = [
   { name: "2008", value: 2 },
   { name: "2009", value: 0 },
@@ -60,13 +120,13 @@ const data: mydatatype[] = [
   { name: "2021", value: 4 },
   { name: "2022", value: 2 },
   { name: "2023", value: 3 },
-];
+]; */
 
 export default function LinePage() {
   const [isGridlinesActive, setIsGridlinesActive] = useState(true);
   const [isCurvedlineActive, setIsCurvedlineActive] = useState(false);
   const [isDotsActive, setIsDotsActive] = useState(true);
-  const [isHoverActive, setIsHoverActive] = useState(false);
+  const [isHoverActive, setIsHoverActive] = useState(true);
 
   const toggleGridlines = () => {
     setIsGridlinesActive(!isGridlinesActive);
@@ -135,7 +195,12 @@ export default function LinePage() {
               <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
                 {product.name}
               </h1>
-
+              <h1
+                className="text-gray-700 cursor-help"
+                title={product.typeDescription}
+              >
+                {product.type}
+              </h1>
               <p className="mt-2 text-sm text-gray-500">
                 Version {product.version.name} (Updated{" "}
                 <time dateTime={product.version.datetime}>
@@ -195,12 +260,13 @@ export default function LinePage() {
             Lignede visualiseringer
           </h2>
         </div>
-        <div className="mt-6 grid grid-cols-1 gap-x-8 gap-y-8 sm:grid-cols-2 sm:gap-y-10">
+        <div className="mt-6 grid grid-cols-1 gap-10 w-fit sm:grid-cols-4 ">
           {relatedChart.map((product) => (
             <a
+              target="_blank"
               href={product.href}
               key={product.id}
-              className="group hover:bg-blue-100 w-fit p-2 rounded-lg"
+              className="group hover:bg-blue-100 w-36 p-2 rounded-lg"
             >
               <div className="aspect-square h-32 overflow-hidden rounded-lg bg-gray-100">
                 <img

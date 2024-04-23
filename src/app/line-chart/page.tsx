@@ -101,26 +101,6 @@ const data: Data = {
     { name: "2023", value: 2 },
   ],
 };
-/* 
-// Declare the data object with the correct TypeScript syntax
-const data: mydatatype[] = [
-  { name: "2008", value: 2 },
-  { name: "2009", value: 0 },
-  { name: "2010", value: 1 },
-  { name: "2011", value: 2 },
-  { name: "2012", value: 1 },
-  { name: "2013", value: 2 },
-  { name: "2014", value: 2 },
-  { name: "2015", value: 2 },
-  { name: "2016", value: 2 },
-  { name: "2017", value: 3 },
-  { name: "2018", value: 3 },
-  { name: "2019", value: 3 },
-  { name: "2020", value: 0 },
-  { name: "2021", value: 4 },
-  { name: "2022", value: 2 },
-  { name: "2023", value: 3 },
-]; */
 
 export default function LinePage() {
   const [isGridlinesActive, setIsGridlinesActive] = useState(true);
@@ -221,12 +201,14 @@ export default function LinePage() {
               </ul>
             </div>
           </div>
-          <button
+          <a
+            target="blank"
+            href="https://github.com/TeeeeJaay/Design-System-DataViz/blob/main/src/app/line-chart/vanilla/line-chart.js"
             type="button"
             className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-violet-700 px-8 py-3 text-base font-medium text-white hover:bg-violet-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
           >
             Gå til ren D3.js fil
-          </button>
+          </a>
         </div>
       </div>
 

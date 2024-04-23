@@ -1,9 +1,7 @@
 {
-  "/not-found": "app/not-found.js",
   "/line-chart/page": "app/line-chart/page.js",
   "/pie-chart/page": "app/pie-chart/page.js",
   "/bar-chart/page": "app/bar-chart/page.js",
   "/colors/page": "app/colors/page.js",
-  "/bar-chart/bar-chart": "app/bar-chart/bar-chart.js",
   "/favicon.ico/route": "app/favicon.ico/route.js"
 }

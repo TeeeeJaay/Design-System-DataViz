@@ -13,11 +13,11 @@ type LineChartProps = {
 };
 
 type Visibility = {
+  [key: string]: boolean;
   MCU: boolean;
   DCU: boolean;
 };
 
-// Definer farver for hver datasæt
 const colorScale = d3
   .scaleOrdinal<string>()
   .domain(["MCU", "DCU"])
@@ -82,12 +82,17 @@ export default function LineChart({
       .append("g")
       .attr("transform", `translate(${margin.left},${margin.top})`);
 
-    const allData = [...data.MCU, ...data.DCU];
+    const filteredData = {
+      MCU: visibility.MCU ? data.MCU : [],
+      DCU: visibility.DCU ? data.DCU : [],
+    };
+
+    const allVisibleData = [...filteredData.MCU, ...filteredData.DCU];
     const x = d3
       .scalePoint()
       .range([0, width])
       .domain(
-        allData
+        allVisibleData
           .map((d) => d.name)
           .filter((value, index, self) => self.indexOf(value) === index)
       );
@@ -95,34 +100,23 @@ export default function LineChart({
     const y = d3
       .scaleLinear()
       .range([height, 0])
-      .domain([0, d3.max(allData, (d) => d.value)!]);
+      .domain([0, d3.max(allVisibleData, (d) => d.value) || 0]);
 
     const xAxis = d3.axisBottom(x);
-    const yAxis = d3.axisLeft(y).ticks(d3.max(allData, (d) => d.value));
+    const yAxis = d3.axisLeft(y).ticks(d3.max(allVisibleData, (d) => d.value));
+
+    const yAxisG = g.append("g").call(yAxis);
+
+    yAxisG.transition().duration(1500).call(yAxis);
 
     g.append("g").attr("transform", `translate(0,${height})`).call(xAxis);
-
-    g.append("g").call(yAxis);
-
-    if (withGridlines) {
-      g.selectAll(".grid-line")
-        .data(y.ticks())
-        .enter()
-        .append("line")
-        .classed("grid-line", true)
-        .attr("x1", 0)
-        .attr("x2", width)
-        .attr("y1", y)
-        .attr("y2", y)
-        .attr("stroke", "#ccc");
-    }
 
     const generateLine = (
       dataset: { name: string; value: number }[],
       color: string,
       label: keyof Visibility
     ) => {
-      if (!visibility[label]) return; // Only draw if visible
+      if (!visibility[label]) return;
 
       const line = d3
         .line<{ name: string; value: number }>()
@@ -151,7 +145,7 @@ export default function LineChart({
           .attr("cx", (d) => x(d.name)!)
           .attr("cy", (d) => y(d.value))
           .attr("r", 5)
-          .attr("fill", colorScale(label));
+          .attr("fill", colorScale(label as string));
 
         if (withHover) {
           dots
@@ -170,33 +164,53 @@ export default function LineChart({
         }
       }
 
-      return path; // Return the path for possible manipulation later
+      return path;
     };
 
-    // Generate lines for each dataset
+    // Generate lines and dots
+    Object.keys(filteredData).forEach((key) => {
+      generateLine(
+        filteredData[key as keyof typeof filteredData],
+        colorScale(key),
+        key as keyof Visibility
+      );
+    });
+
+    if (withGridlines) {
+      g.selectAll(".grid-line")
+        .data(y.ticks())
+        .enter()
+        .append("line")
+        .classed("grid-line", true)
+        .attr("x1", 0)
+        .attr("x2", width)
+        .attr("y1", y)
+        .attr("y2", y)
+        .attr("stroke", "#ccc");
+    }
+
     generateLine(data.MCU, "MCU", "MCU");
     generateLine(data.DCU, "DCU", "DCU");
 
-    // Add a legend below the chart
     const legend = svg
       .append("g")
       .attr("class", "legend")
       .attr(
         "transform",
         `translate(${margin.left}, ${height + margin.top + 30})`
-      ); // Positioning the legend below the chart
+      );
 
     legend
       .selectAll(null)
       .data(["MCU", "DCU"])
       .enter()
       .append("rect")
-      .attr("x", (d, i) => i * 100) // Horizontal spacing
+      .attr("x", (d, i) => i * 100)
       .attr("width", 18)
       .attr("height", 18)
       .style("fill", (d) => colorScale(d))
+      .attr("class", (d) => (!visibility[d] ? "opacity-50" : ""))
       .on("click", (event, d) => {
-        // Add click handler to toggle visibility
         setVisibility((prev) => ({
           ...prev,
           [d as keyof typeof prev]: !prev[d as keyof typeof prev],
@@ -206,7 +220,7 @@ export default function LineChart({
         d3.select(this).classed("stroke-2 stroke-gray-400", true);
       })
       .on("mouseleave", function (event, d) {
-        d3.select(this).classed(`stroke-2 stroke-gray-400`, false);
+        d3.select(this).classed("stroke-2 stroke-gray-400", false);
       });
 
     legend
@@ -215,11 +229,11 @@ export default function LineChart({
       .enter()
       .append("text")
       .attr("x", (d, i) => i * 100 + 24)
-      .attr("y", 9) // Vertically align text
+      .attr("y", 9)
       .attr("dy", ".35em")
+      .attr("class", (d) => (!visibility[d] ? "opacity-50" : "")) // Conditional class application based on visibility
       .text((d) => d)
       .on("click", (event, d) => {
-        // Add same click handler to text
         setVisibility((prev) => ({
           ...prev,
           [d as keyof typeof prev]: !prev[d as keyof typeof prev],

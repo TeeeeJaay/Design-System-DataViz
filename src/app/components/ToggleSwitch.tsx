@@ -20,7 +20,7 @@ export function ToggleSwitch({
       disabled={disabled} // Apply the disabled state
       className={classNames(
         "group relative inline-flex h-5 w-10 flex-shrink-0 cursor-pointer items-center justify-center rounded-full",
-        "focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2",
+        "focus:outline-none focus:ring-2 focus:ring-violet-700 focus:ring-offset-2",
         disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer" // Adjust opacity and cursor when disabled
       )}
     >
@@ -32,7 +32,7 @@ export function ToggleSwitch({
       <span
         aria-hidden="true"
         className={classNames(
-          enabled ? "bg-indigo-600" : "bg-gray-200",
+          enabled ? "bg-violet-700" : "bg-gray-200",
           "pointer-events-none absolute mx-auto h-4 w-9 rounded-full transition-colors duration-200 ease-in-out"
         )}
       />

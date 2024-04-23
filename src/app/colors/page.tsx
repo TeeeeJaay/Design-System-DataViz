@@ -108,15 +108,53 @@ const divFiles = [
   },
 ];
 
+const catFiles = [
+  {
+    title: "schemeSet2",
+    code: "const colorScale = d3.scaleOrdinal(d3.schemeSet2) ",
+    description: "Bruges til katagorisk data med max 8 forskellige kategorier",
+    colorList: {
+      "#66c2a5": "bg-[#66c2a5]",
+      "#fc8d62": "bg-[#fc8d62]",
+      "#8da0cb": "bg-[#8da0cb]",
+      "#e78ac3": "bg-[#e78ac3]",
+      "#a6d854": "bg-[#a6d854]",
+      "#ffd92f": "bg-[#ffd92f]",
+      "#e5c494": "bg-[#e5c494]",
+      "#b3b3b3": "bg-[#b3b3b3]",
+    },
+  },
+  {
+    title: "schemeSet3",
+    code: "const colorScale = d3.scaleOrdinal(d3.schemeSet3) ",
+    description:
+      "Bruges til katagorisk data med max 12 forskellige kategorier. Har du mere end 12 kategorier bør du revurdere din data",
+    colorList: {
+      "#8dd3c7": "bg-[#8dd3c7]", // Tilføjer CSS-klasser efter behov
+      "#ffffb3": "bg-[#ffffb3]",
+      "#bebada": "bg-[#bebada]",
+      "#fb8072": "bg-[#fb8072]",
+      "#80b1d3": "bg-[#80b1d3]",
+      "#fdb462": "bg-[#fdb462]",
+      "#b3de69": "bg-[#b3de69]",
+      "#fccde5": "bg-[#fccde5]",
+      "#d9d9d9": "bg-[#d9d9d9]",
+      "#bc80bd": "bg-[#bc80bd]",
+      "#ccebc5": "bg-[#ccebc5]",
+      "#ffed6f": "bg-[#ffed6f]",
+    },
+  },
+];
+
 export default function ColorPage() {
   const copyToClipboard = async (text: string) => {
     navigator.clipboard.writeText(text);
   };
 
   return (
-    <main className="p-10">
+    <main className="p-10 flex flex-col gap-10 ">
       <div className="pb-10">
-        <h1 className="text-lg font-medium">Sekventielle (naturlig orden) </h1>
+        <h1 className="text-2xl font-medium">Sekventielle (naturlig orden) </h1>
         <h4 className="text-sm pb-3">
           Bruges når der en naturlig orden i data (ordinal, diskret eller
           kontinuerligt data). Der{" "}
@@ -128,7 +166,7 @@ export default function ColorPage() {
           className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8"
         >
           {seqFiles.map((file, index) => (
-            <li key={index} className="relative">
+            <li key={index} className="relative h-fit">
               <div className="group border block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100">
                 <div className="grid grid-cols-3">
                   {Object.entries(file.colorList).map(
@@ -143,28 +181,22 @@ export default function ColorPage() {
               <p className="mt-2 block truncate text-sm font-medium text-gray-900">
                 {file.title}
               </p>
-              <p className="pointer-events-none block text-sm font-medium text-gray-500">
+              <p className="pointer-events-none block text-sm font-medium text-gray-500 h-full pb-5">
                 {file.description}
               </p>
-              <div className="bg-black text-white font-mono p-4 text-xs rounded-sm">
+              <div className="bg-black text-white font-mono p-4 pb-8 text-xs rounded-sm h-full">
                 <p>{file.code}</p>
                 <ClipboardDocumentCheckIcon
                   onClick={() => copyToClipboard(file.code)}
-                  className="h-8 absolute bottom-0.5 right-0.5 active:scale-95  active:text-slate-200 transition-all"
+                  className="h-8 absolute bottom-1 right-0.5 active:scale-90  active:text-slate-200 transition-all duration-100"
                 />
               </div>
-              <button
-                /*         onClick={() => copyColorKeysToClipboard(index)} */
-                className=" flex text-wrap text-sm font-medium text-slate-700 hover:underline"
-              >
-                {/*       {copiedIndex === index ? "Kopieret ✓" : "Kopier array"}{" "} */}
-              </button>
             </li>
           ))}
         </ul>
       </div>
-      <div>
-        <h1 className="text-lg font-medium">
+      <div className="flex flex-col">
+        <h1 className="text-2xl font-medium">
           Divergent (naturlig orden, med et midtpunkt){" "}
         </h1>
         <h4 className="text-sm pb-3">
@@ -179,7 +211,7 @@ export default function ColorPage() {
           className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8"
         >
           {divFiles.map((file, index) => (
-            <li key={index} className="relative">
+            <li key={index} className=" h-fit">
               <div className="group border block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100">
                 <div className="grid grid-cols-3">
                   {Object.entries(file.colorList).map(
@@ -194,22 +226,59 @@ export default function ColorPage() {
               <p className="mt-2 block truncate text-sm font-medium text-gray-900">
                 {file.title}
               </p>
-              <p className="pointer-events-none block text-sm font-medium text-gray-500">
+              <p className="pointer-events-none block text-sm font-medium text-gray-500 h-full pb-5">
                 {file.description}
               </p>
-              <div className="bg-black text-white font-mono p-4 text-xs rounded-sm">
+              <div className="bg-black text-white font-mono p-4 pb-8 text-xs rounded-sm h-fit self-end relative">
                 <p>{file.code}</p>
                 <ClipboardDocumentCheckIcon
                   onClick={() => copyToClipboard(file.code)}
-                  className="h-8 absolute bottom-0.5 right-0.5 active:scale-95  active:text-slate-200 transition-all"
+                  className="h-8 absolute bottom-1 right-0.5 active:scale-90  active:text-slate-200 transition-all duration-100"
                 />
               </div>
-              <button
-                /*         onClick={() => copyColorKeysToClipboard(index)} */
-                className=" flex text-wrap text-sm font-medium text-slate-700 hover:underline"
-              >
-                {/*       {copiedIndex === index ? "Kopieret ✓" : "Kopier array"}{" "} */}
-              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <h1 className="text-2xl font-medium">
+          Katagorisk (Ingen naturlig orden){" "}
+        </h1>
+        <h4 className="text-sm pb-3">
+          Bruges når data er katagisk og der ikke er nogle naturlig sammenhæng
+          mellem variable. Dette kan fx. være personer, lande, adresse og lign.
+        </h4>
+
+        <ul
+          role="list"
+          className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8"
+        >
+          {catFiles.map((file, index) => (
+            <li key={index} className="relative h-fit">
+              <div className="group border block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100">
+                <div className="grid grid-cols-3 min-h-80">
+                  {Object.entries(file.colorList).map(
+                    ([color, className], index) => (
+                      <div key={index} className={`p-4 ${className}`}>
+                        {color}
+                      </div>
+                    )
+                  )}
+                </div>
+              </div>
+              <p className="mt-2 block truncate text-sm font-medium text-gray-900">
+                {file.title}
+              </p>
+              <p className="pointer-events-none block text-sm font-medium text-gray-500 h-full pb-5">
+                {file.description}
+              </p>
+              <div className="bg-black text-white font-mono p-4 pb-8 text-xs rounded-sm h-full">
+                <p>{file.code}</p>
+                <ClipboardDocumentCheckIcon
+                  onClick={() => copyToClipboard(file.code)}
+                  className="h-8 absolute bottom-1 right-0.5 active:scale-90  active:text-slate-200 transition-all duration-100"
+                />
+              </div>
             </li>
           ))}
         </ul>

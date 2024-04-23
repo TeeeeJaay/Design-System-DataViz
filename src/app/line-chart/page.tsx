@@ -210,20 +210,6 @@ export default function LinePage() {
               </p>
             </div>
             <p className="mt-6 text-gray-500">{product.description}</p>
-            <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
-              <button
-                type="button"
-                className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
-              >
-                Kopier ren D3.js
-              </button>
-              <button
-                type="button"
-                className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-50 px-8 py-3 text-base font-medium text-indigo-700 hover:bg-indigo-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
-              >
-                Se kode
-              </button>
-            </div>
           </div>
           <div className="border-t border-gray-200 pt-5 mt-5">
             <h3 className="text-sm font-medium text-gray-900">Godt at huske</h3>
@@ -235,6 +221,12 @@ export default function LinePage() {
               </ul>
             </div>
           </div>
+          <button
+            type="button"
+            className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-violet-700 px-8 py-3 text-base font-medium text-white hover:bg-violet-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
+          >
+            Gå til ren D3.js fil
+          </button>
         </div>
       </div>
 
@@ -266,7 +258,7 @@ export default function LinePage() {
               target="_blank"
               href={product.href}
               key={product.id}
-              className="group hover:bg-blue-100 w-36 p-2 rounded-lg"
+              className="group hover:bg-violet-100 w-36 p-2 rounded-lg"
             >
               <div className="aspect-square h-32 overflow-hidden rounded-lg bg-gray-100">
                 <img

@@ -1,7 +1,6 @@
 {
-  "/line-chart/page": "app/line-chart/page.js",
   "/pie-chart/page": "app/pie-chart/page.js",
   "/bar-chart/page": "app/bar-chart/page.js",
   "/colors/page": "app/colors/page.js",
-  "/favicon.ico/route": "app/favicon.ico/route.js"
+  "/line-chart/page": "app/line-chart/page.js"
 }

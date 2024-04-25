@@ -10,7 +10,7 @@ const data = [
 ];
 
 const percentageLabel = false;
-const withLabels = true;
+const withLabels = false;
 const withLegend = true;
 const withHover = true;
 
@@ -19,7 +19,7 @@ const MARGIN = 30;
 const radius = Math.min(width, height) / 2 - MARGIN;
 const innerRadius = radius / 4;
 const colorScale = d3.scaleOrdinal(d3.schemeSet2);
-const legendContainer = document.getElementById("legendContainer");
+const legendContainer = d3.selectAll("#legendContainer");
 
 // D3 code to generate the chart
 const svg = d3
@@ -38,6 +38,7 @@ const pieGenerator = d3
   .value((d) => d.value);
 
 const pieData = pieGenerator(data);
+console.log(pieData);
 
 const arcPathGenerator = d3.arc().innerRadius(innerRadius).outerRadius(radius);
 
@@ -48,20 +49,20 @@ const paths = g
   .append("path")
   .attr("d", arcPathGenerator)
   .attr("fill", (d, i) => colorScale(i.toString()))
+  //udkommenter hvis du ikke ønsker en hoverfunktion
   .on("mouseenter", function (event, d) {
-    if (withHover) {
-      d3.select(this).classed("scale-02", true);
-      d3.selectAll("path")
-        .filter((p) => p !== d)
-        .classed("opacity-50", true);
-    }
+    d3.select(this).classed("scale-02", true); //har du tailwind sat korrekt op, kan du bruge klassen "scale-[1.02]"
+    d3.selectAll("path")
+      .filter((p) => p !== d)
+      .classed("opacity-50", true);
   })
   .on("mouseleave", function () {
-    if (withHover) {
-      d3.selectAll("path").classed("opacity-50", false);
-      d3.select(this).classed("scale-02", false);
-    }
+    d3.selectAll("path").classed("opacity-50", false);
+    d3.select(this).classed("scale-02", false);
   });
+//
+
+//udkommenter hvis du hverken bruger labels eller hover effekt
 const arcLabelGenerator = d3
   .arc()
   .innerRadius(innerRadius)
@@ -69,52 +70,47 @@ const arcLabelGenerator = d3
   .padAngle(0.01)
   .padRadius(innerRadius);
 
-const labelsContainer = document.getElementById("labelsContainer");
-
+//udkommenter hvis du ikke bruger labels
 pieData.forEach((d, index) => {
   const [labelX, labelY] = arcLabelGenerator.centroid(d);
-  const x = labelX + width / 2;
-  const y = labelY + height / 2;
+  const x = labelX;
+  const y = labelY;
 
-  const label = document.createElement("div");
-  label.className = "flex flex-col items-center text-zinc-800";
-  label.style.position = "absolute";
-  label.style.left = `${x}px`;
-  label.style.top = `${y}px`;
-  label.style.transform = "translate(-50%, -50%)";
-  label.style.pointerEvents = "none";
+  const label = g
+    .append("g")
+    .attr("class", "label-group")
+    .classed(`${d.data.name} p-4 bg-white`, true);
 
-  if (withLabels) {
-    const name = document.createElement("div");
-    name.className = "font-semibold text-lg";
-    name.textContent = d.data.name;
-    label.appendChild(name);
+  label
+    .append("text")
+    .attr("x", x)
+    .attr("y", y)
+    .attr("text-anchor", "middle")
+    .attr("dy", "0.35em")
+    .attr("font-size", "18")
+    .attr("font-weight", "bold")
+    .attr("class", "label-text")
+    .text(d.data.name);
 
-    const value = document.createElement("div");
-    value.textContent = percentageLabel
-      ? `${(d.data.value * 100).toFixed(1)}%`
-      : `${d.data.value} film`;
-    label.appendChild(value);
-  }
-
-  labelsContainer.appendChild(label);
+  label
+    .append("text")
+    .attr("x", x)
+    .attr("y", y + 30)
+    .attr("text-anchor", "middle")
+    .attr("class", "label-value")
+    .text(`${d.data.value} film`);
 });
 
-// Code to render legend
-if (withLegend) {
-  data.forEach((d, i) => {
-    const legendItem = document.createElement("div");
-    legendItem.className = "legend-item flex items-center mb-2";
-    const legendColorBlock = document.createElement("div");
-    legendColorBlock.className = "legend-color-block";
-    legendColorBlock.style.backgroundColor = colorScale(i.toString());
-    legendColorBlock.style.width = "20px";
-    legendColorBlock.style.height = "20px";
-    legendColorBlock.style.marginRight = "10px";
-    legendItem.appendChild(legendColorBlock);
-    const legendText = document.createElement("div");
-    legendText.textContent = d.name;
-    legendItem.appendChild(legendText);
-    legendContainer.appendChild(legendItem);
-  });
-}
+const legendItems = legendContainer
+  .selectAll(".legend-item")
+  .data(data)
+  .enter()
+  .append("div")
+  .attr("class", "legend-item flex items-center mb-2");
+
+legendItems
+  .append("div")
+  .style("background-color", (d, i) => colorScale(i.toString()))
+  .classed("w-5 h-5 mr-1 rounded", true);
+
+legendItems.append("div").text((d) => d.name);

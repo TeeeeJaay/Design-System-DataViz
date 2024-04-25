@@ -142,9 +142,7 @@ export default function PieChart({
         .append("div")
         .attr("class", "legend-color-block")
         .style("background-color", (d, i) => colorScale(i.toString()))
-        .style("width", "20px")
-        .style("height", "20px")
-        .style("margin-right", "10px");
+        .classed("w-5 h-5 mr-1 rounded", true);
 
       legendItems.append("div").text((d) => d.name);
     } else {

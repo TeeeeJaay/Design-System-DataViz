@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@^2.0/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pie Chart</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+      .scale-02 {
+        transform: scale(1.02);
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="chartContainer"
+      style="width: 600px; height: 600px"
+      class="relative flex justify-center border"
+    >
+      <svg id="chartSVG" class="absolute top-0 left-0"></svg>
+      <div id="labelsContainer" class=""></div>
+      <div id="legendContainer" class="absolute bottom-0 flex gap-2"></div>
+    </div>
+    <script src="pie-chart.js"></script>
+  </body>
+</html>

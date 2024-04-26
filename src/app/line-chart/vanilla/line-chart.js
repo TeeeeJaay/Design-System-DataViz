@@ -17,8 +17,9 @@ const data = {
     { name: "2021", value: 4 },
     { name: "2022", value: 2 },
     { name: "2023", value: 3 },
+    ß,
   ],
-  DCU: [
+  DCEU: [
     { name: "2008", value: 0 },
     { name: "2009", value: 0 },
     { name: "2010", value: 0 },

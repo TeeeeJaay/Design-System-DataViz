@@ -4,7 +4,7 @@ import React, { useEffect, useState, useRef } from "react";
 type LineChartProps = {
   data: {
     MCU: { name: string; value: number }[];
-    DCU: { name: string; value: number }[];
+    DCEU: { name: string; value: number }[];
   };
   withHover?: boolean;
   withGridlines?: boolean;
@@ -15,12 +15,12 @@ type LineChartProps = {
 type Visibility = {
   [key: string]: boolean;
   MCU: boolean;
-  DCU: boolean;
+  DCEU: boolean;
 };
 
 const colorScale = d3
   .scaleOrdinal<string>()
-  .domain(["MCU", "DCU"])
+  .domain(["MCU", "DCEU"])
   .range(d3.schemeSet2);
 
 export default function LineChart({
@@ -36,7 +36,7 @@ export default function LineChart({
   const [containerWidth, setContainerWidth] = useState<number>(800);
   const [visibility, setVisibility] = useState<Visibility>({
     MCU: true,
-    DCU: true,
+    DCEU: true,
   });
 
   useEffect(() => {
@@ -84,10 +84,10 @@ export default function LineChart({
 
     const filteredData = {
       MCU: visibility.MCU ? data.MCU : [],
-      DCU: visibility.DCU ? data.DCU : [],
+      DCEU: visibility.DCEU ? data.DCEU : [],
     };
 
-    const allVisibleData = [...filteredData.MCU, ...filteredData.DCU];
+    const allVisibleData = [...filteredData.MCU, ...filteredData.DCEU];
     const x = d3
       .scalePoint()
       .range([0, width])
@@ -190,7 +190,7 @@ export default function LineChart({
     }
 
     generateLine(data.MCU, "MCU", "MCU");
-    generateLine(data.DCU, "DCU", "DCU");
+    generateLine(data.DCEU, "DCEU", "DCEU");
 
     const legend = svg
       .append("g")
@@ -202,7 +202,7 @@ export default function LineChart({
 
     legend
       .selectAll(null)
-      .data(["MCU", "DCU"])
+      .data(["MCU", "DCEU"])
       .enter()
       .append("rect")
       .attr("x", (d, i) => i * 100)
@@ -225,7 +225,7 @@ export default function LineChart({
 
     legend
       .selectAll(null)
-      .data(["MCU", "DCU"])
+      .data(["MCU", "DCEU"])
       .enter()
       .append("text")
       .attr("x", (d, i) => i * 100 + 24)

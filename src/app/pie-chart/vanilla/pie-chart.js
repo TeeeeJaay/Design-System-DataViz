@@ -14,12 +14,11 @@ const withLabels = false;
 const withLegend = true;
 const withHover = true;
 
-// Equivalent logic of React component
+//
 const MARGIN = 30;
 const radius = Math.min(width, height) / 2 - MARGIN;
 const innerRadius = radius / 4;
 const colorScale = d3.scaleOrdinal(d3.schemeSet2);
-const legendContainer = d3.selectAll("#legendContainer");
 
 // D3 code to generate the chart
 const svg = d3
@@ -42,6 +41,14 @@ console.log(pieData);
 
 const arcPathGenerator = d3.arc().innerRadius(innerRadius).outerRadius(radius);
 
+//udkommenter hvis du hverken bruger labels eller hover effekt
+const arcLabelGenerator = d3
+  .arc()
+  .innerRadius(innerRadius)
+  .outerRadius(radius)
+  .padAngle(0.01)
+  .padRadius(innerRadius);
+
 const paths = g
   .selectAll("path")
   .data(pieData)
@@ -55,22 +62,36 @@ const paths = g
     d3.selectAll("path")
       .filter((p) => p !== d)
       .classed("opacity-50", true);
+    const [labelX, labelY] = arcLabelGenerator.centroid(d);
+    const tooltip = g
+      .append("text")
+      .attr("x", labelX)
+      .attr("y", labelY)
+      .attr("text-anchor", "middle")
+      .attr("dy", "0.35em")
+      .attr("font-size", "18")
+      .attr("font-weight", "bold")
+      .attr("class", "hover-label")
+      .classed("pointer-events-none", true)
+      .text(d.data.name);
+    g.append("text")
+      .attr("x", labelX)
+      .attr("y", labelY + 30)
+      .attr("text-anchor", "middle")
+      .attr("class", "label-value")
+      .text(`${d.data.value} film`)
+      .classed("pointer-events-none", true);
   })
   .on("mouseleave", function () {
     d3.selectAll("path").classed("opacity-50", false);
     d3.select(this).classed("scale-02", false);
+    g.selectAll(".hover-label").remove();
+    g.selectAll(".label-value").remove();
   });
 //
 
-//udkommenter hvis du hverken bruger labels eller hover effekt
-const arcLabelGenerator = d3
-  .arc()
-  .innerRadius(innerRadius)
-  .outerRadius(radius)
-  .padAngle(0.01)
-  .padRadius(innerRadius);
-
-//udkommenter hvis du ikke bruger labels
+//Tilføj hvis du altid vil have labels
+/* 
 pieData.forEach((d, index) => {
   const [labelX, labelY] = arcLabelGenerator.centroid(d);
   const x = labelX;
@@ -99,7 +120,10 @@ pieData.forEach((d, index) => {
     .attr("text-anchor", "middle")
     .attr("class", "label-value")
     .text(`${d.data.value} film`);
-});
+}); */
+
+//udkommenter hvis du ikke ønsker en legend
+const legendContainer = d3.selectAll("#legendContainer");
 
 const legendItems = legendContainer
   .selectAll(".legend-item")
@@ -114,3 +138,4 @@ legendItems
   .classed("w-5 h-5 mr-1 rounded", true);
 
 legendItems.append("div").text((d) => d.name);
+//

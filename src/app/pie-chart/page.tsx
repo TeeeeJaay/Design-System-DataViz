@@ -155,12 +155,14 @@ export default function PiePage() {
               </ul>
             </div>
           </div>
-          <button
+          <a
+            target="blank"
+            href="https://github.com/TeeeeJaay/Design-System-DataViz/blob/main/src/app/pie-chart/vanilla/pie-chart.js"
             type="button"
             className="flex mt-10 w-full items-center justify-center rounded-md border border-transparent bg-violet-700 px-8 py-3 text-base font-medium text-white hover:bg-violet-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
           >
             Gå til ren D3.js fil
-          </button>
+          </a>
         </div>
       </div>
 

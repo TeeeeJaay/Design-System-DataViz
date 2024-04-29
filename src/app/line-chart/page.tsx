@@ -13,6 +13,7 @@ const product = {
     "Et linjediagram viser ændringer over tid i kvantitative værdier for forskellige kategorier, arrangeret langs en tidslig x-akse. Værdierne plottes som forbundne linjer, der fremhæver tendenser mellem datapunkter, og flere kategorier kan vises samtidigt med unikke linjer for hver.",
   highlights: [
     "- Er god til at vise tendeser som ændre sig over tid",
+    "- Y-aksen bør altid starte i 0, medmindre der er en godt argument for andet",
     "- For mange linjer kan gøre diagrammet rodet og vanskeligt at aflæse.",
     "- Tidsintervallet på x-aksen skal passe til det formål, diagrammet tjener",
   ],

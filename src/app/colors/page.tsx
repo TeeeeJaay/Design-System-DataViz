@@ -7,7 +7,7 @@ const seqFiles = [
   {
     title: "Blå sekventielle -Enkelt hue",
     code: 'const BlueColors = d3.scaleLinear().domain([1,12]).range([{"#F7FBFF", "#072C57"])',
-    description: "Bruges til at vise ",
+    description: "",
     colorList: {
       "#f7fbff": "bg-[#f7fbff]",
       "#e3eef9": "bg-[#e3eef9]",
@@ -27,7 +27,7 @@ const seqFiles = [
     title: "Sequential-Enkelt hue",
     code: 'const RedColors = d3.scaleLinear().domain([1,12]) .range(["#FFF5F0", "#56000D"])',
 
-    description: "Bruges til at vise ",
+    description: "",
     colorList: {
       "#fff5f0": "bg-[#fff5f0]",
       "#fee3d6": "bg-[#fee3d6]",
@@ -130,7 +130,7 @@ const catFiles = [
     description:
       "Bruges til katagorisk data med max 12 forskellige kategorier. Har du mere end 12 kategorier bør du revurdere din data",
     colorList: {
-      "#8dd3c7": "bg-[#8dd3c7]", // Tilføjer CSS-klasser efter behov
+      "#8dd3c7": "bg-[#8dd3c7]",
       "#ffffb3": "bg-[#ffffb3]",
       "#bebada": "bg-[#bebada]",
       "#fb8072": "bg-[#fb8072]",

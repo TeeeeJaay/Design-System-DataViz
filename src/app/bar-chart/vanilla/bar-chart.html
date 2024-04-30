@@ -12,7 +12,14 @@
     <script src="https://d3js.org/d3.v7.min.js"></script>
   </head>
   <body>
-    <div id="chart" style="width: 100%; height: 100%"></div>
+    <div id="chart-container" class="border m-10 w-1/2">
+      <svg
+        id="chart-svg"
+        viewBox="0 0 800 500"
+        preserveAspectRatio="xMidYMid meet"
+        class="h-full w-full"
+      ></svg>
+    </div>
     <script src="bar-chart.js"></script>
   </body>
 </html>

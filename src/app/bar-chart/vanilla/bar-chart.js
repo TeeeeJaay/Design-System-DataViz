@@ -1,4 +1,4 @@
-// Data and configuration
+// Data
 const data = [
   { name: "Tony", value: 9 },
   { name: "Peter", value: 6 },
@@ -7,38 +7,38 @@ const data = [
   { name: "Thor", value: 8 },
 ];
 
+// definere farvepalletten
 const colorScale = d3.scaleOrdinal(d3.schemeSet2);
 
-const margin = { top: 20, right: 20, bottom: 30, left: 40 };
-let containerWidth = document.getElementById("chart").clientWidth;
-const height = 400 - margin.top - margin.bottom;
-let svg = d3.select("#chart").append("svg");
+//vælger containeren og svg'en fra html'en
+const container = d3.selectAll("#chart-container");
+const svg = d3.select("#chart-svg");
 
-function resize() {
-  containerWidth = document.getElementById("chart").clientWidth;
-  updateChart();
-}
-window.addEventListener("resize", resize);
+//definere dimentionerne
 
-function updateChart() {
+const margin = { top: 20, right: 20, bottom: 40, left: 20 };
+const height = 500 - margin.top - margin.bottom;
+const width = 800 - margin.left - margin.right;
+
+function renderChart() {
   svg.selectAll("*").remove(); // Clear previous SVG content
 
-  svg
-    .attr("width", containerWidth)
-    .attr("height", height + margin.top + margin.bottom);
+  svg.attr("width", width).attr("height", height);
 
+  //laver en gruppe og placere den i svg'en
   let g = svg
     .append("g")
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
   let sortedData = [...data];
+
   //udkommenter eller slet hvis du ikke ønsker rangering baseret på værdien
   sortedData.sort((a, b) => b.value - a.value);
 
-  // Scale setup
+  // definere akser
   const x = d3
     .scaleBand()
-    .rangeRound([0, containerWidth - margin.left - margin.right])
+    .rangeRound([0, width])
     .padding(0.1)
     .domain(sortedData.map((d) => d.name));
 
@@ -48,7 +48,6 @@ function updateChart() {
     .domain([0, d3.max(sortedData, (d) => d.value * 1.2)]);
 
   //udkommenter eller slet hvis du ikke ønkser gridlines
-
   const yAxisTicks = y.ticks().filter((tick) => tick !== 0);
   g.selectAll(".grid-line")
     .data(yAxisTicks)
@@ -56,14 +55,13 @@ function updateChart() {
     .append("line")
     .attr("class", "grid-line")
     .attr("x1", 0)
-    .attr("x2", containerWidth - margin.left - margin.right)
+    .attr("x2", width)
     .attr("y1", (d) => y(d))
     .attr("y2", (d) => y(d))
     .attr("stroke", "#ccc");
-
   //
 
-  // Bars
+  // definere barerne
   g.selectAll(".bar")
     .data(sortedData)
     .enter()
@@ -98,10 +96,13 @@ function updateChart() {
     });
   ////
 
+  //tilføjer akser
   g.append("g")
     .attr("transform", `translate(0,${height})`)
-    .call(d3.axisBottom(x));
+    .call(d3.axisBottom(x))
+    .attr("font-size", "16");
+
   g.append("g").call(d3.axisLeft(y));
 }
 
-updateChart(); // Initial chart rendering
+renderChart();

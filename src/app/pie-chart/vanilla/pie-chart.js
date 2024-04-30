@@ -1,6 +1,4 @@
-// Define your data and options here
-const width = 600;
-const height = 600;
+// Definere data
 
 const data = [
   { name: "Fase 1", value: 6 },
@@ -9,36 +7,32 @@ const data = [
   { name: "Fase 4", value: 15 },
 ];
 
-const percentageLabel = false;
-const withLabels = false;
-const withLegend = true;
-const withHover = true;
-
-//
-const MARGIN = 30;
-const radius = Math.min(width, height) / 2 - MARGIN;
+//definere dimentionerne
+const margin = { top: 10, right: 10, bottom: 10, left: 10 };
+const width = 600 - margin.left - margin.right;
+const height = 600 - margin.top - margin.bottom;
+const radius = Math.min(width, height) / 2;
 const innerRadius = radius / 4;
+
+// definere farvepalletten
 const colorScale = d3.scaleOrdinal(d3.schemeSet2);
 
-// D3 code to generate the chart
-const svg = d3
-  .select("#chartSVG")
-  .attr("width", width)
-  .attr("height", height)
-  .classed("pie-chart", true);
+//vælger svg'en fra html'en
+const svg = d3.select("#chart-svg");
 
-const g = svg
-  .append("g")
-  .attr("transform", `translate(${width / 2}, ${height / 2})`);
+//laver en gruppe og placere den i svg'en
+const g = svg.append("g").attr("transform", `translate(${300}, ${300})`);
 
+//definere at arcs størrelse er baseret på value i data
 const pieGenerator = d3
   .pie()
   .sort(null)
   .value((d) => d.value);
 
+// Genererer pie data fra datasættet data
 const pieData = pieGenerator(data);
-console.log(pieData);
 
+// generere pathen for de enkelte pie slices
 const arcPathGenerator = d3.arc().innerRadius(innerRadius).outerRadius(radius);
 
 //udkommenter hvis du hverken bruger labels eller hover effekt
@@ -46,9 +40,10 @@ const arcLabelGenerator = d3
   .arc()
   .innerRadius(innerRadius)
   .outerRadius(radius)
-  .padAngle(0.01)
   .padRadius(innerRadius);
+//
 
+//tegner alle pie slices
 const paths = g
   .selectAll("path")
   .data(pieData)
@@ -56,6 +51,7 @@ const paths = g
   .append("path")
   .attr("d", arcPathGenerator)
   .attr("fill", (d, i) => colorScale(i.toString()))
+
   //udkommenter hvis du ikke ønsker en hoverfunktion
   .on("mouseenter", function (event, d) {
     d3.select(this).classed("scale-02", true); //har du tailwind sat korrekt op, kan du bruge klassen "scale-[1.02]"
@@ -71,22 +67,22 @@ const paths = g
       .attr("dy", "0.35em")
       .attr("font-size", "18")
       .attr("font-weight", "bold")
-      .attr("class", "hover-label")
+      .attr("class", "hover-name")
       .classed("pointer-events-none", true)
       .text(d.data.name);
     g.append("text")
       .attr("x", labelX)
       .attr("y", labelY + 30)
       .attr("text-anchor", "middle")
-      .attr("class", "label-value")
+      .attr("class", "hover-value")
       .text(`${d.data.value} film`)
       .classed("pointer-events-none", true);
   })
   .on("mouseleave", function () {
     d3.selectAll("path").classed("opacity-50", false);
     d3.select(this).classed("scale-02", false);
-    g.selectAll(".hover-label").remove();
-    g.selectAll(".label-value").remove();
+    g.selectAll(".hover-name").remove();
+    g.selectAll(".hover-value").remove();
   });
 //
 
@@ -110,7 +106,7 @@ pieData.forEach((d, index) => {
     .attr("dy", "0.35em")
     .attr("font-size", "18")
     .attr("font-weight", "bold")
-    .attr("class", "label-text")
+    .attr("class", "label-name")
     .text(d.data.name);
 
   label
@@ -123,8 +119,12 @@ pieData.forEach((d, index) => {
 }); */
 
 //udkommenter hvis du ikke ønsker en legend
-const legendContainer = d3.selectAll("#legendContainer");
+//vælger containeren
+const legendContainer = d3
+  .selectAll("#legend-container")
+  .classed("flex gap-6", true);
 
+//definere legenden
 const legendItems = legendContainer
   .selectAll(".legend-item")
   .data(data)
@@ -132,10 +132,12 @@ const legendItems = legendContainer
   .append("div")
   .attr("class", "legend-item flex items-center mb-2");
 
+//tilføjer firkant med farven tilhørende den enkelte værdi
 legendItems
   .append("div")
   .style("background-color", (d, i) => colorScale(i.toString()))
   .classed("w-5 h-5 mr-1 rounded", true);
 
+//tilføjer tekst med navnet tilhørende den enkelte værdi
 legendItems.append("div").text((d) => d.name);
 //

@@ -208,9 +208,9 @@ export default function LineChart({
       .attr("x", (d, i) => i * 100)
       .attr("width", 18)
       .attr("height", 18)
-      .classed("cursor-pointer", true)
       .style("fill", (d) => colorScale(d))
       .attr("class", (d) => (!visibility[d] ? "opacity-50" : ""))
+      .classed("cursor-pointer", true)
       .on("click", (event, d) => {
         setVisibility((prev) => ({
           ...prev,
@@ -231,9 +231,9 @@ export default function LineChart({
       .append("text")
       .attr("x", (d, i) => i * 100 + 24)
       .attr("y", 9)
-      .classed("cursor-pointer gekkefs", true)
       .attr("dy", ".35em")
       .attr("class", (d) => (!visibility[d] ? "opacity-50" : "")) // Conditional class application based on visibility
+      .classed("cursor-pointer", true)
       .text((d) => d)
       .on("click", (event, d) => {
         setVisibility((prev) => ({

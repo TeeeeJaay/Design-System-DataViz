@@ -231,7 +231,7 @@ export default function LineChart({
       .append("text")
       .attr("x", (d, i) => i * 100 + 24)
       .attr("y", 9)
-      .classed("cursor-pointer", true)
+      .classed("cursor-pointer gekkefs", true)
       .attr("dy", ".35em")
       .attr("class", (d) => (!visibility[d] ? "opacity-50" : "")) // Conditional class application based on visibility
       .text((d) => d)

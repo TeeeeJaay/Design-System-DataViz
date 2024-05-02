@@ -16,20 +16,10 @@
       "static/chunks/main-app.js",
       "static/chunks/app/pie-chart/page.js"
     ],
-    "/line-chart/page": [
+    "/not-found": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/line-chart/page.js"
-    ],
-    "/bar-chart/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/bar-chart/page.js"
-    ],
-    "/colors/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/colors/page.js"
+      "static/chunks/app/not-found.js"
     ]
   }
 }

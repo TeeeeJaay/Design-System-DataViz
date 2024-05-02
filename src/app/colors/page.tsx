@@ -1,6 +1,4 @@
 "use client";
-import { useState } from "react";
-import { stringify } from "querystring";
 import { ClipboardDocumentCheckIcon } from "@heroicons/react/24/outline";
 
 const seqFiles = [
@@ -21,26 +19,6 @@ const seqFiles = [
       "#0a4a90": "bg-[#0a4a90] text-white",
       "#08306b": "bg-[#08306b] text-white",
       "#072c57": "bg-[#072c57] text-white",
-    },
-  },
-  {
-    title: "Sequential-Enkelt hue",
-    code: 'const RedColors = d3.scaleLinear().domain([1,12]) .range(["#FFF5F0", "#56000D"])',
-
-    description: "",
-    colorList: {
-      "#fff5f0": "bg-[#fff5f0]",
-      "#fee3d6": "bg-[#fee3d6]",
-      "#fdc9b4": "bg-[#fdc9b4]",
-      "#fcaa8e": "bg-[#fcaa8e]",
-      "#fc8a6b": "bg-[#fc8a6b]",
-      "#f9694c": "bg-[#f9694c]",
-      "#ef4533": "bg-[#ef4533] text-white",
-      "#d92723": "bg-[#d92723] text-white",
-      "#bb151a": "bg-[#bb151a] text-white",
-      "#970b13": "bg-[#970b13] text-white",
-      "#67000d": "bg-[#67000d] text-white",
-      "#56000D": "bg-[#56000D] text-white",
     },
   },
 ];

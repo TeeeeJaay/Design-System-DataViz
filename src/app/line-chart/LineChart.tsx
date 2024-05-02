@@ -208,6 +208,7 @@ export default function LineChart({
       .attr("x", (d, i) => i * 100)
       .attr("width", 18)
       .attr("height", 18)
+      .classed("cursor-pointer", true)
       .style("fill", (d) => colorScale(d))
       .attr("class", (d) => (!visibility[d] ? "opacity-50" : ""))
       .on("click", (event, d) => {
@@ -230,6 +231,7 @@ export default function LineChart({
       .append("text")
       .attr("x", (d, i) => i * 100 + 24)
       .attr("y", 9)
+      .classed("cursor-pointer", true)
       .attr("dy", ".35em")
       .attr("class", (d) => (!visibility[d] ? "opacity-50" : "")) // Conditional class application based on visibility
       .text((d) => d)
